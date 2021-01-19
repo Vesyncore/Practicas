@@ -1,0 +1,229 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>PR&Aacute;CTICA 5: Series de Fourier en Tiempo Cont&iacute;nuo</title><meta name="generator" content="MATLAB 9.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-18"><meta name="DC.source" content="Practica05.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>PR&Aacute;CTICA 5: Series de Fourier en Tiempo Cont&iacute;nuo</h1><!--introduction--><p>EQUIPO:</p><div><ol><li>Alcaraz Hern&aacute;ndez Albert</li><li>L&oacute;pez Arce Samuel Adri&aacute;n</li><li>River&oacute;n Reyes Adriana</li><li>Vald&eacute;s Dom&iacute;nguez Sergio</li></ol></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Objetivos</a></li><li><a href="#2">Ejemplo 6.2</a></li><li><a href="#3">PR08</a></li><li><a href="#5">PR10</a></li></ul></div><h2 id="1">Objetivos</h2><div><ul><li>Realizar gr&aacute;ficas de series de Fourier exponenciales y trigonom&eacute;tricas en tiempo continuo</li><li>Manipulaci&oacute;n de instrucciones en MATLAB</li></ul></div><h2 id="2">Ejemplo 6.2</h2><p>Serie de Fourier trigonom&eacute;trica compacta de una Onda triangular peri&oacute;dica</p><p>Encuentre la serie de Fourier trigonom&eacute;trica compacta para la se&ntilde;al peri&oacute;dica triangular x(t) y dibuje los espectros de amplitud y fase para x(t).</p><p>Sabemos que la se&ntilde;al x(t) esta dada por la funcion:</p><p>2At cuando -0.5 &lt; t &lt; 0.5</p><p>t 2A(1-t) cuando 0.5 &lt; t &lt; 1.5</p><pre class="codeinput">d0=0;
+dn=@(n) (((8/((n.^2)*(pi.^2))))*(sin(n*pi*2)))*(-j/2);
+t0=-4.5;
+tf=5.5;
+f=@(t) sawtooth((pi*t+1.6),1/2);
+armo=15;
+a=-5;
+b=5;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+</pre><img vspace="5" hspace="5" src="Practica05_01.png" alt=""> <h2 id="3">PR08</h2><p><b>PROBLEMA 1</b></p><p>Encuentra la expresi&oacute;n la serie de Fourier para la se&ntilde;al f(t) = t en el intervalo [-1,1]</p><p>Tenemos de forma anal&iacute;tica que la serie trigonom&eacute;trica compacta es:</p><p><img src="Practica05_eq05653021316618148879.png" alt="$$S_{f}(t)= \sum_{n=1}^{\infty}\frac{-2cos(n\pi)}{n\pi}cos(nw_{0}t)$$"></p><p>Y la compleja:</p><p><img src="Practica05_eq13396273177803849036.png" alt="$$S_{f}(t)= \sum_{-\infty}^{\infty}\frac{jcos(n\pi)}{n\pi}e^{nw_0jt}$$"></p><p>Tomando como base el siguiente problema se usar&aacute; la funci&oacute;n dada para encontrar los datos requeridos.</p><p>Para empezar, se cambi&oacute; un poco la funci&oacute;n para poder ajustar los par&aacute;metros que tenemos y que el resultado salga bien, de modo que al hacer eso colocamos las siguientes l&iacute;neas.</p><pre class="codeinput">d0=0;
+dn=@(n) (j*cos(pi*n))/(pi*n);
+t0=-1;
+tf=1;
+f=@(t) t;
+armo=15;
+a=-6;
+b=6;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+</pre><img vspace="5" hspace="5" src="Practica05_02.png" alt=""> <p><b>PROBLEMA 2</b></p><p>Encuentra la expresi&oacute;n de la serie de Fourier para la se&ntilde;al f(t) = t^2 en el intervalo [-2,2]</p><p>Tenemos de forma anal&iacute;tica, la serie trigonom&eacute;trica compacta es:</p><p><img src="Practica05_eq05219600755505664442.png" alt="$$S_{f}(t)=&#xA;\frac{4}{3}+\sum_{n=1}^{\infty}\frac{16}{n^2\pi^2}cos(\frac{n\pi t}{2})$$"></p><p>Y para la compleja:</p><p><img src="Practica05_eq04838945307834438786.png" alt="$$S_{f}(t)=\sum_{n=1}^{\infty}\frac{8}{n^2\pi^2}e^{nw_0jt}$$"></p><p>Ingresando los datos a la funci&oacute;n, tenemos que:</p><pre class="codeinput">d0=4/3;
+dn=@(n) (8)/(pi*n*pi*n);
+t0=-2;
+tf=2;
+f=@(t) t.^2;
+armo=15;
+a=-10;
+b=10;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+</pre><img vspace="5" hspace="5" src="Practica05_03.png" alt=""> <h2 id="5">PR10</h2><p>1. Sea una se&ntilde;al f(t) de periodo T, su descripci&oacute;n en intervalo (-T/2 , T/2) es: f(t) = ae^(-a|t|)</p><p>Su serie de Fourier en dicho intervalo es Sf(t)=sum(a^2(1-e^(-a)cos(nPi)/(a^2+n^2Pi^2))e^(jnPit))</p><p>a) Determine el valor de T</p><p>b) &iquest;Cu&aacute;l es el valor promedio de f(t)?</p><p>c) La componente de f(t) en cierta frecuencia se puede expresar como Acos(3Pit). Determine el valor de A</p><p>d) Calcule la Serie de Fourier para la se&ntilde;al f(t) encontrado en a) y verifique que coincida con la proporcionada.</p><pre class="codeinput">d0 = 0;
+dn = @(n) (([2^2]*[1-(exp(-2))*cos(n*pi)])/(2^2+(n^2)*pi^2))
+t0 = -1;
+tf = 1;
+f = @(t) 2*exp(-2*t);
+armo = 15;
+a = -6;
+b = 6;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+</pre><pre class="codeoutput">
+dn =
+
+  function_handle with value:
+
+    @(n)(([2^2]*[1-(exp(-2))*cos(n*pi)])/(2^2+(n^2)*pi^2))
+
+</pre><img vspace="5" hspace="5" src="Practica05_04.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% PRÁCTICA 5: Series de Fourier en Tiempo Contínuo
+%
+% EQUIPO:
+%
+% # Alcaraz Hernández Albert
+% # López Arce Samuel Adrián
+% # Riverón Reyes Adriana
+% # Valdés Domínguez Sergio
+% 
+%% Objetivos
+%
+% * Realizar gráficas de series de Fourier exponenciales y trigonométricas en tiempo continuo
+% * Manipulación de instrucciones en MATLAB
+%% Ejemplo 6.2
+%
+% Serie de Fourier trigonométrica compacta de una Onda triangular periódica
+%
+% Encuentre la serie de Fourier trigonométrica compacta para la señal
+% periódica triangular x(t) y dibuje los espectros de amplitud y fase para
+% x(t).
+%
+% Sabemos que la señal x(t) esta dada por la funcion:
+%
+% 2At cuando -0.5 < t < 0.5
+%
+% t 2A(1-t) cuando 0.5 < t < 1.5
+
+d0=0;
+dn=@(n) (((8/((n.^2)*(pi.^2))))*(sin(n*pi*2)))*(-j/2);
+t0=-4.5;
+tf=5.5;
+f=@(t) sawtooth((pi*t+1.6),1/2);
+armo=15;
+a=-5;
+b=5;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+%% PR08
+% *PROBLEMA 1*
+%
+% Encuentra la expresión la serie de Fourier para la señal f(t) = t en el
+% intervalo [-1,1]
+%
+% Tenemos de forma analítica que la serie trigonométrica compacta es:
+%
+% $$S_{f}(t)= \sum_{n=1}^{\infty}\frac{-2cos(n\pi)}{n\pi}cos(nw_{0}t)$$
+%
+% Y la compleja:
+%
+% $$S_{f}(t)= \sum_{-\infty}^{\infty}\frac{jcos(n\pi)}{n\pi}e^{nw_0jt}$$
+%
+% Tomando como base el siguiente problema se usará la función dada para
+% encontrar los datos requeridos.
+%
+% Para empezar, se cambió un poco la función para poder ajustar los
+% parámetros que tenemos y que el resultado salga bien, de modo que al hacer
+% eso colocamos las siguientes líneas.
+d0=0;
+dn=@(n) (j*cos(pi*n))/(pi*n);
+t0=-1;
+tf=1;
+f=@(t) t;
+armo=15;
+a=-6;
+b=6;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+%%
+% *PROBLEMA 2*
+%
+% Encuentra la expresión de la serie de Fourier para la señal f(t) = t^2 en
+% el intervalo [-2,2]
+%
+% Tenemos de forma analítica, la serie trigonométrica compacta es:
+%
+% $$S_{f}(t)=
+% \frac{4}{3}+\sum_{n=1}^{\infty}\frac{16}{n^2\pi^2}cos(\frac{n\pi t}{2})$$
+%
+% Y para la compleja:
+%
+% $$S_{f}(t)=\sum_{n=1}^{\infty}\frac{8}{n^2\pi^2}e^{nw_0jt}$$
+%
+% Ingresando los datos a la función, tenemos que:
+d0=4/3;
+dn=@(n) (8)/(pi*n*pi*n);
+t0=-2;
+tf=2;
+f=@(t) t.^2;
+armo=15;
+a=-10;
+b=10;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+%% PR10
+%
+% 1. Sea una señal f(t) de periodo T, su descripción en intervalo (-T/2 , T/2) es:
+% f(t) = ae^(-a|t|)   
+%
+% Su serie de Fourier en dicho intervalo es
+% Sf(t)=sum(a^2(1-e^(-a)cos(nPi)/(a^2+n^2Pi^2))e^(jnPit))
+%
+% a) Determine el valor de T
+%
+% b) ¿Cuál es el valor promedio de f(t)?
+%
+% c) La componente de f(t) en cierta frecuencia se puede expresar como Acos(3Pit). Determine el valor de A
+%
+% d) Calcule la Serie de Fourier para la señal f(t) encontrado en a) y verifique que coincida con la proporcionada. 
+d0 = 0;
+dn = @(n) (([2^2]*[1-(exp(-2))*cos(n*pi)])/(2^2+(n^2)*pi^2))
+t0 = -1;
+tf = 1;
+f = @(t) 2*exp(-2*t);
+armo = 15;
+a = -6;
+b = 6;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+##### SOURCE END #####
+--></body></html>
