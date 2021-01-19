@@ -1,0 +1,172 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>PR8</title><meta name="generator" content="MATLAB 9.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-18"><meta name="DC.source" content="PR8.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>PR8</h1><p>Problema 1</p><pre class="codeinput"><span class="comment">%Encuentra la expresi&oacute;n de la serie de Fourier para la se&ntilde;al f(t) = t en</span>
+<span class="comment">%el intervalo [-1,1].</span>
+
+<span class="comment">%Tenemos de forma anal&iacute;tica, la serie trigonom&eacute;trica compacta es:</span>
+<span class="comment">% $$S_{f}(t)= \sum_{n=1}^{\infty}\frac{-2cos(n\pi)}{n\pi}cos(nw_{0}t)$$</span>
+
+<span class="comment">%Y la compleja:</span>
+<span class="comment">% $$S_{f}(t)= \sum_{-\infty}^{\infty}\frac{jcos(n\pi)}{n\pi}e^{nw_0jt}$$</span>
+
+<span class="comment">%Tomando como base el siguiente problema se usar&aacute; la funci&oacute;n dada para</span>
+<span class="comment">%encontrar los datos requeridos.</span>
+<span class="comment">%Para empezar, se cambi&oacute; un poco la funci&oacute;n para poder ajustar los</span>
+<span class="comment">%par&aacute;metros que tenemos y que el resultado salga bien, de modo que al hacer</span>
+<span class="comment">%eso colocamos las siguientes l&iacute;neas.</span>
+d0=0;
+dn=@(n) (j*cos(pi*n))/(pi*n);
+t0=-1;
+tf=1;
+f=@(t) t;
+armo=15;
+a=-5;
+b=5;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+<span class="comment">% &lt;&lt;Problema_1_compleja.PNG&gt;&gt;</span>
+</pre><img vspace="5" hspace="5" src="PR8_01.png" alt=""> <p>Problema 2</p><pre class="codeinput"><span class="comment">%Encuentra la expresi&oacute;n de la serie de Fourier para la se&ntilde;al f(t) = t^2 en</span>
+<span class="comment">%el invertalo [-2,2]</span>
+
+<span class="comment">%Tenemos de forma anal&iacute;tica, la serie trigonom&eacute;trica compacta es:</span>
+<span class="comment">% $$S_{f}(t)=</span>
+<span class="comment">% \frac{4}{3}+\sum_{n=1}^{\infty}\frac{16}{n^2\pi^2}cos(\frac{n\pi t}{2})$$</span>
+
+<span class="comment">%Y para la compleja:</span>
+<span class="comment">% $$S_{f}(t)=\sum_{n=1}^{\infty}\frac{8}{n^2\pi^2}e^{nw_0jt}$$</span>
+
+<span class="comment">%Ingresando los datos a la funci&oacute;n, tenemos que:</span>
+d0=4/3;
+dn=@(n) (8)/(pi*n*pi*n);
+t0=-2;
+tf=2;
+f=@(t) t.^2;
+armo=15;
+a=-10;
+b=10;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+<span class="comment">% &lt;&lt;Problema_2_compleja.PNG&gt;&gt;</span>
+</pre><img vspace="5" hspace="5" src="PR8_02.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% PR8
+% Problema 1
+%Encuentra la expresión de la serie de Fourier para la señal f(t) = t en
+%el intervalo [-1,1].
+
+%Tenemos de forma analítica, la serie trigonométrica compacta es:
+% $$S_{f}(t)= \sum_{n=1}^{\infty}\frac{-2cos(n\pi)}{n\pi}cos(nw_{0}t)$$
+
+%Y la compleja:
+% $$S_{f}(t)= \sum_{-\infty}^{\infty}\frac{jcos(n\pi)}{n\pi}e^{nw_0jt}$$
+
+%Tomando como base el siguiente problema se usará la función dada para
+%encontrar los datos requeridos.
+%Para empezar, se cambió un poco la función para poder ajustar los
+%parámetros que tenemos y que el resultado salga bien, de modo que al hacer
+%eso colocamos las siguientes líneas.
+d0=0;
+dn=@(n) (j*cos(pi*n))/(pi*n);
+t0=-1;
+tf=1;
+f=@(t) t;
+armo=15;
+a=-5;
+b=5;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+% <<Problema_1_compleja.PNG>>
+
+%%
+% Problema 2
+%Encuentra la expresión de la serie de Fourier para la señal f(t) = t^2 en
+%el invertalo [-2,2]
+
+%Tenemos de forma analítica, la serie trigonométrica compacta es:
+% $$S_{f}(t)=
+% \frac{4}{3}+\sum_{n=1}^{\infty}\frac{16}{n^2\pi^2}cos(\frac{n\pi t}{2})$$
+
+%Y para la compleja:
+% $$S_{f}(t)=\sum_{n=1}^{\infty}\frac{8}{n^2\pi^2}e^{nw_0jt}$$
+
+%Ingresando los datos a la función, tenemos que:
+d0=4/3;
+dn=@(n) (8)/(pi*n*pi*n);
+t0=-2;
+tf=2;
+f=@(t) t.^2;
+armo=15;
+a=-10;
+b=10;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+% <<Problema_2_compleja.PNG>>
+
+
+
+
+
+##### SOURCE END #####
+--></body></html>
